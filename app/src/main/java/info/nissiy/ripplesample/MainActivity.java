@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         private int cardElevation;
 
         public ListSpacingItemDecoration(Context context, int cardElevation) {
-            unitMargin = context.getResources().getDimensionPixelOffset(R.dimen.unit_margin);
+            unitMargin = context.getResources().getDimensionPixelSize(R.dimen.unit_margin);
             this.cardElevation = cardElevation;
         }
 
