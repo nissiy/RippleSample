@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(final SampleViewHolder holder, final int position) {
+        public void onBindViewHolder(final SampleViewHolder holder, int position) {
             holder.imageView.setImageResource(R.drawable.sample_image);
             holder.textView.setText(String.format("Content Item No.%d", position));
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onClickItemListener != null) {
-                        onClickItemListener.onClick(v, position);
+                        onClickItemListener.onClick(v, holder.getAdapterPosition());
                     }
                 }
             });
