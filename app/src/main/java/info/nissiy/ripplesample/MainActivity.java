@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -25,12 +27,8 @@ public class MainActivity extends AppCompatActivity {
         final SampleRecyclerViewAdapter adapter = new SampleRecyclerViewAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new ListSpacingItemDecoration(this, getResources().getDimensionPixelSize(R.dimen.card_elevation)));
-        adapter.setOnClickItemListener(new SampleRecyclerViewAdapter.OnClickItemListener() {
-            @Override
-            public void onClick(View v, int position) {
-                Snackbar.make(contentsRoot, String.format("Click Item No.%d", position), Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        adapter.setOnClickItemListener((position) ->
+                Snackbar.make(contentsRoot, String.format("Click Item No.%d", position), Snackbar.LENGTH_SHORT).show());
         recyclerView.setAdapter(adapter);
     }
 
@@ -39,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         private OnClickItemListener onClickItemListener;
 
         public interface OnClickItemListener {
-            void onClick(View v, int position);
+            void onClick(int position);
         }
 
         public void setOnClickItemListener(OnClickItemListener onClickItemListener) {
@@ -55,13 +53,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final SampleViewHolder holder, int position) {
             holder.imageView.setImageResource(R.drawable.sample_image);
-            holder.textView.setText(String.format("Content Item No.%d", position));
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onClickItemListener != null) {
-                        onClickItemListener.onClick(v, holder.getAdapterPosition());
-                    }
+            holder.textView.setText(String.format(Locale.US, "Content Item No.%d", position));
+            holder.itemView.setOnClickListener((v) -> {
+                if (onClickItemListener != null) {
+                    onClickItemListener.onClick(holder.getAdapterPosition());
                 }
             });
         }
